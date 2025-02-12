@@ -1,22 +1,37 @@
 import styles from "./ContactList.module.css";
 import Contact from "./Contact.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact, selectContacts } from "../redux/contactsSlice";
-import { selectNameFilter } from "../redux/filteredSlice";
+import {
+  selectNameFilter,
+  selectFilteredContacts,
+  setFilteredContacts,
+} from "../redux/filteredSlice";
+import { removeContact, fetchContacts } from "../redux/constactsOps";
+import { useEffect } from "react";
+import { selectContacts, selectIsLoading } from "../redux/contactsSlice";
 
 function ContactList() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectNameFilter);
+  const filterValue = useSelector(selectNameFilter);
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const isLoading = useSelector(selectIsLoading);
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const filtered = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filterValue.toLowerCase())
+    );
+    dispatch(setFilteredContacts(filtered));
+  }, [contacts, filterValue, dispatch]);
 
   if (filteredContacts.length === 0) {
     return (
       <div className={styles.contactListNotFound}>
-        <p>No contacts found</p>
+        {isLoading ? <p>Loading...</p> : <p>No contacts found</p>}
       </div>
     );
   }
@@ -29,7 +44,7 @@ function ContactList() {
           key={contact.id}
           name={contact.name}
           number={contact.number}
-          onDelete={() => dispatch(deleteContact(contact.id))}
+          onDelete={() => dispatch(removeContact(contact.id))}
         />
       ))}
     </div>
