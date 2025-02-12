@@ -1,18 +1,38 @@
-# Homework 06 - Redux Implementation
+# 📱 Phonebook App - Homework 7
 
-This project continues the development started in homework 03, now integrating Redux for state management. The application manages a list of contacts, allowing users to add, delete, and search for contacts.
+![React](https://img.shields.io/badge/React-18.2.0-blue) ![Redux](https://img.shields.io/badge/Redux-latest-purple) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
-## Functionality
+## 📝 Introduction
 
-- **Add Contact:** Add a new contact with a name and phone number. The form validates input to prevent duplicate contact names.
-- **Delete Contact:** Remove a contact from the list by clicking a delete button associated with each contact.
-- **Search Contact:** Filter the contact list in real-time based on a search query entered in the search box. The filter is case-insensitive.
-- **State Management:** Utilizes Redux Toolkit for managing the application's state, including contacts and the filter query. Redux Persist is used to save and load the contacts from local storage.
+This project is part of **Homework 7**, focusing on building a modern React application with Redux state management. The application serves as a comprehensive contact management system with real-time search capabilities and seamless state management.
 
-## Technologies Used
+## 🔄 App Flow
 
-- React
-- Redux Toolkit
-- Redux Persist
-- CSS Modules
-- JavaScript
+### 📱 Core Features
+
+1. **📋 Home Screen**
+
+   - Displays the comprehensive list of contacts
+   - Clean and intuitive user interface
+
+2. **➕ Add Contact**
+
+   - User-friendly contact form
+   - Input validation
+   - Duplicate contact prevention
+
+3. **❌ Delete Contact**
+
+   - One-click contact removal
+   - Instant UI updates
+
+4. **🔍 Search Contacts**
+
+   - Real-time search functionality
+   - Case-insensitive search
+   - Instant filtering
+
+5. **⚛️ State Management**
+   - Centralized Redux store
+   - Efficient state updates
+   - Persistent data storage
