@@ -28,6 +28,11 @@ function ContactList() {
     dispatch(setFilteredContacts(filtered));
   }, [contacts, filterValue, dispatch]);
 
+  const handleDelete = async (id) => {
+    await dispatch(removeContact(id));
+    dispatch(fetchContacts());
+  };
+
   if (filteredContacts.length === 0) {
     return (
       <div className={styles.contactListNotFound}>
@@ -44,7 +49,7 @@ function ContactList() {
           key={contact.id}
           name={contact.name}
           number={contact.number}
-          onDelete={() => dispatch(removeContact(contact.id))}
+          onDelete={() => handleDelete(contact.id)}
         />
       ))}
     </div>

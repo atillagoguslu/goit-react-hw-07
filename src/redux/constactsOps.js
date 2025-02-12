@@ -1,27 +1,3 @@
-//İşlemler
-
-// redux klasöründe, asenkron eylem yaratıcılarını saklamak için contactsOps.js dosyasını oluşturun.
-
-// İşlemleri duyurmak için createAsyncThunk işlevini kullanın.
-// HTTP istekleri için axios kütüphanesini kullanın.
-
-// Tanımlanması Gereken işlemler:
-
-// fetchContacts - GET yöntemi ile kişi dizisini alma. Temel eylem türü "contacts/fetchAll" satırıdır.
-// addContact - Yeni bir kişi ekleme (POST yöntemi) Temel eylem türü "contacts/addContact" satırıdır.
-// deleteContact - ID’ye göre bir kişiyi silme (DELETE yöntemi). Temel eylem türü "contacts/deleteContact" satırıdır.
-
-// HTTP istek hatalarını düzgün şekilde işlemek için işlemlerin içinde try...catch yapısını kullanın ve catch bloğunda thunkAPI.rejectWithValue yönteminin çağrılma sonucunu döndürün.
-
-// Example API DATA:
-// const exampleData = {
-//   id: "1", // Backend will generate this
-//   name: "John Doe", // User input
-//   number: "123-45-67", // User input
-//   createdAt: "2024-01-01", // Backend will generate this
-//   avatar: "https://via.placeholder.com/150", // Backend will generate this
-// };
-
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
