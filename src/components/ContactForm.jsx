@@ -4,6 +4,8 @@ import * as yup from "yup";
 import InputMask from "react-input-mask";
 import { useDispatch } from "react-redux";
 import { addContact } from "../redux/constactsOps";
+import { selectIsLoading } from "../redux/contactsSlice";
+import { useSelector } from "react-redux";
 
 const initialValues = {
   name: "",
@@ -21,6 +23,7 @@ const validationSchema = yup.object().shape({
 
 function ContactForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
   const handleSubmit = (values, { resetForm }) => {
     // Gelen numara değeri number olarak geliyor. Ancak daha iyi gözükmesi için xxx-xx-xx formatına çeviriyoruz.
@@ -65,8 +68,11 @@ function ContactForm() {
             component="div"
             className={styles.errorMessage}
           />
-
-          <button type="submit">Add Contact</button>
+          {isLoading ? (
+            <button type="submit">Adding...</button>
+          ) : (
+            <button type="submit">Add Contact</button>
+          )}
         </Form>
       </Formik>
     </div>
