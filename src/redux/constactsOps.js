@@ -7,9 +7,12 @@ const API_RESOURCE = "contacts";
 
 const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
-  async (_, thunkAPI) => {
+  async (sortBy = null, thunkAPI) => {
     try {
-      const response = await axios.get(`${API_URL}/${API_RESOURCE}`);
+      const params = sortBy ? { sortBy, order: "asc" } : {};
+      const response = await axios.get(`${API_URL}/${API_RESOURCE}`, {
+        params,
+      });
       console.log("Fetching contacts:", response.data);
       return response.data;
     } catch (error) {
@@ -23,7 +26,6 @@ const addContact = createAsyncThunk(
   async (contact, thunkAPI) => {
     try {
       const response = await axios.post(`${API_URL}/${API_RESOURCE}`, contact);
-
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -36,7 +38,6 @@ const removeContact = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await axios.delete(`${API_URL}/${API_RESOURCE}/${id}`);
-
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
