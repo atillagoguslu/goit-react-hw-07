@@ -1,6 +1,9 @@
 import styles from "./Contact.module.css";
+import { useSelector } from "react-redux";
+import { selectIsLoading } from "../redux/contactsSlice";
 
 function Contact({ name, number, onDelete }) {
+  const isLoading = useSelector(selectIsLoading);
   return (
     <div className={styles.contact}>
       <div className={styles.contactCard}>
@@ -12,9 +15,15 @@ function Contact({ name, number, onDelete }) {
             <span>{number}</span>
           </div>
         </div>
-        <button className={styles.deleteBtn} onClick={onDelete}>
-          Delete
-        </button>
+        {isLoading ? (
+          <button className={styles.deleteBtn} onClick={onDelete}>
+            Deleting...
+          </button>
+        ) : (
+          <button className={styles.deleteBtn} onClick={onDelete}>
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );
