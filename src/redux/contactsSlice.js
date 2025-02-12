@@ -7,6 +7,11 @@ const contactsSlice = createSlice({
   initialState: {
     items: [], // Empty array of contacts
     isLoading: false,
+    loadingStates: {
+      fetch: false,
+      add: false,
+      delete: false,
+    },
     error: null,
   },
 
@@ -14,43 +19,49 @@ const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
       state.items = action.payload;
-      state.isLoading = false;
+      state.loadingStates.fetch = false;
+      state.error = null;
     });
     builder.addCase(addContact.fulfilled, (state, action) => {
       state.items.push(action.payload);
-      state.isLoading = false;
+      state.loadingStates.add = false;
+      state.error = null;
     });
     builder.addCase(removeContact.fulfilled, (state, action) => {
       state.items = state.items.filter(
         (contact) => contact.id !== action.payload
       );
-      state.isLoading = false;
+      state.loadingStates.delete = false;
+      state.error = null;
     });
     builder.addCase(fetchContacts.rejected, (state, action) => {
       state.error = action.error.message;
-      state.isLoading = false;
+      state.loadingStates.fetch = false;
     });
     builder.addCase(addContact.rejected, (state, action) => {
       state.error = action.error.message;
-      state.isLoading = false;
+      state.loadingStates.add = false;
     });
     builder.addCase(removeContact.rejected, (state, action) => {
       state.error = action.error.message;
-      state.isLoading = false;
+      state.loadingStates.delete = false;
     });
     builder.addCase(fetchContacts.pending, (state) => {
-      state.isLoading = true;
+      state.loadingStates.fetch = true;
+      state.error = null;
     });
     builder.addCase(addContact.pending, (state) => {
-      state.isLoading = true;
+      state.loadingStates.add = true;
+      state.error = null;
     });
     builder.addCase(removeContact.pending, (state) => {
-      state.isLoading = true;
+      state.loadingStates.delete = true;
+      state.error = null;
     });
   },
 });
 
 export const selectContacts = (state) => state.contacts.items;
-export const selectIsLoading = (state) => state.contacts.isLoading;
+export const selectLoadingStates = (state) => state.contacts.loadingStates;
 export const selectError = (state) => state.contacts.error;
 export default contactsSlice.reducer;
